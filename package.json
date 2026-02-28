@@ -1,0 +1,17 @@
+{
+  "name": "habit-tracker-heatmap",
+  "version": "0.1.0",
+  "description": "GitHub-style contribution heatmap for Obsidian Bases",
+  "main": "main.js",
+  "scripts": {
+    "dev": "node esbuild.config.mjs",
+    "build": "tsc --noEmit --skipLibCheck && node esbuild.config.mjs production",
+    "install": "npm run build && DEST=${OBS_VAULT_DIR:-\"$HOME/Obsidian/My Second Brain\"}; mkdir -p \"$DEST\"/.obsidian/plugins/habit-tracker-heatmap/ && cp main.js manifest.json \"$DEST\"/.obsidian/plugins/habit-tracker-heatmap/"
+  },
+  "devDependencies": {
+    "builtin-modules": "^3.3.0",
+    "esbuild": "0.17.3",
+    "obsidian": "latest",
+    "typescript": "5.0.4"
+  }
+}

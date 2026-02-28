@@ -1,0 +1,9 @@
+{
+  "id": "habit-tracker-heatmap",
+  "name": "Scott's Habit Tracker Heatmap",
+  "version": "0.1.0",
+  "minAppVersion": "1.9.0",
+  "description": "GitHub-style contribution heatmap view for Obsidian Bases",
+  "author": "Scott Walter",
+  "isDesktopOnly": false
+}
