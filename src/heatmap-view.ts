@@ -65,7 +65,7 @@ export const HEATMAP_VIEW_OPTIONS: (_config: BasesViewConfig) => BasesAllOptions
 				type: 'slider',
 				displayName: 'Min Value',
 				key: 'minValue',
-				default: 0,
+				default: 1,
 				min: 0,
 				max: 100,
 				step: 1,
@@ -165,12 +165,12 @@ export class HeatmapView extends BasesView {
 		const trackProperty = this.config.get('trackProperty') as string | undefined
 		const startDateStr = this.config.get('startDate') as string | undefined
 		const endDateStr = this.config.get('endDate') as string | undefined
-		const minValue = Number(this.config.get('minValue')) || 0
+		const rawMin = this.config.get('minValue'); const minValue = rawMin != null ? Number(rawMin) : 1
 		const maxValue = Number(this.config.get('maxValue')) || 10
 
-		const startDate = startDateStr && moment(startDateStr).isValid() ? moment(startDateStr) : moment().subtract(1, 'year')
+		const startDate = startDateStr && moment(startDateStr).isValid() ? moment(startDateStr) : moment().startOf('year')
 
-		const endDate = endDateStr && moment(endDateStr).isValid() ? moment(endDateStr) : moment()
+		const endDate = endDateStr && moment(endDateStr).isValid() ? moment(endDateStr) : moment().endOf('year')
 
 		return { dateProperty, trackProperty, startDate, endDate, minValue, maxValue }
 	}

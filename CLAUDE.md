@@ -7,16 +7,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```bash
 npm run dev        # watch mode — rebuilds main.js on every save
 npm run build      # type-check then production build
+npm run install    # build + copy main.js and manifest.json into the Obsidian vault
 npx tsc --noEmit --skipLibCheck  # type-check only
 ```
 
-After any build, copy `main.js` + `manifest.json` to the Obsidian vault:
-`.obsidian/plugins/habit-tracker-heatmap/`
+`npm run install` deploys to `$HOME/Obsidian/My Second Brain` by default. Override with:
 
-For example
-
-```
-cp main.js manifest.json ~/Obsidian/My\ Second\ Brain/.obsidian/plugins/habit-tracker-heatmap/
+```bash
+OBS_VAULT_DIR="/path/to/vault" npm run install
 ```
 
 ## Architecture

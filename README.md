@@ -85,8 +85,8 @@ If the plugin was already enabled, toggle it off and back on to pick up the new 
 |---|---|
 | **Track Property** | The frontmatter field to visualize (e.g. `note.habit-water`) |
 | **Date Property** | Optional frontmatter field containing the note's date. If unset, the date is parsed from the filename. |
-| **Start Date** | Beginning of the date range (`YYYY-MM-DD`) |
-| **End Date** | End of the date range (`YYYY-MM-DD`) |
+| **Start Date** | Beginning of the date range (`YYYY-MM-DD`). Defaults to January 1 of the current year. |
+| **End Date** | End of the date range (`YYYY-MM-DD`). Defaults to December 31 of the current year. |
 | **Min Value** | Value at or below which a cell shows as black |
 | **Max Value** | Value at which a cell reaches full green |
 
