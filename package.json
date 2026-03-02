@@ -6,12 +6,19 @@
   "scripts": {
     "dev": "node esbuild.config.mjs",
     "build": "tsc --noEmit --skipLibCheck && node esbuild.config.mjs production",
-    "install": "npm run build && DEST=${OBS_VAULT_DIR:-\"$HOME/Obsidian/My Second Brain\"}; mkdir -p \"$DEST\"/.obsidian/plugins/habit-tracker-heatmap/ && cp main.js manifest.json \"$DEST\"/.obsidian/plugins/habit-tracker-heatmap/"
+    "install": "npm run build && DEST=${OBS_VAULT_DIR:-\"$HOME/Obsidian/My Second Brain\"}; mkdir -p \"$DEST\"/.obsidian/plugins/habit-tracker-heatmap/ && cp main.js manifest.json \"$DEST\"/.obsidian/plugins/habit-tracker-heatmap/",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "devDependencies": {
+    "@types/jest": "^30.0.0",
     "builtin-modules": "^3.3.0",
     "esbuild": "0.17.3",
+    "jest": "^30.2.0",
+    "jest-environment-jsdom": "^30.2.0",
+    "moment": "^2.30.1",
     "obsidian": "latest",
+    "ts-jest": "^29.4.6",
     "typescript": "5.0.4"
   }
 }

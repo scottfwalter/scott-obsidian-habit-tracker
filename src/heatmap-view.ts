@@ -125,7 +125,7 @@ interface DayCell {
 
 // ─── Color helper ────────────────────────────────────────────────────────────
 
-function colorForValue(value: number | null, min: number, max: number, palette: [string, string, string, string]): string {
+export function colorForValue(value: number | null, min: number, max: number, palette: [string, string, string, string]): string {
 	if (value === null || value <= min) return EMPTY_CELL_COLOR
 	if (max <= min || value >= max) return palette[3]
 	return palette[Math.max(0, Math.ceil(((value - min) / (max - min)) * 4) - 1)]
