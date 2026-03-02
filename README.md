@@ -2,8 +2,6 @@
 
 A GitHub-style contribution heatmap view for [Obsidian Bases](https://obsidian.md/bases). Visualize any numeric or boolean frontmatter property across your daily notes as a color-coded grid — one column per week, one row per day.
 
-![Heatmap showing green cells of varying intensity across a year grid with month labels]
-
 ## Features
 
 - GitHub-style green color scale based on property value
@@ -13,6 +11,9 @@ A GitHub-style contribution heatmap view for [Obsidian Bases](https://obsidian.m
 - Click any cell to open the corresponding note
 - Hover tooltip showing the date and value
 - Date parsed from frontmatter property or automatically from the filename (`YYYY-MM-DD` or `MM-DD-YYYY`)
+
+![screenshot1](./screenshot1.png)
+![screenshot2](./screenshot2.png)
 
 ## Requirements
 
@@ -81,22 +82,22 @@ If the plugin was already enabled, toggle it off and back on to pick up the new 
 2. Click the view selector and choose **Habit Heatmap**
 3. Configure the view options in the Bases toolbar:
 
-| Option | Description |
-|---|---|
-| **Track Property** | The frontmatter field to visualize (e.g. `note.habit-water`) |
-| **Date Property** | Optional frontmatter field containing the note's date. If unset, the date is parsed from the filename. |
-| **Start Date** | Beginning of the date range (`YYYY-MM-DD`). Defaults to January 1 of the current year. |
-| **End Date** | End of the date range (`YYYY-MM-DD`). Defaults to December 31 of the current year. |
-| **Min Value** | Value at or below which a cell shows as black |
-| **Max Value** | Value at which a cell reaches full green |
+| Option             | Description                                                                                            |
+| ------------------ | ------------------------------------------------------------------------------------------------------ |
+| **Track Property** | The frontmatter field to visualize (e.g. `note.habit-water`)                                           |
+| **Date Property**  | Optional frontmatter field containing the note's date. If unset, the date is parsed from the filename. |
+| **Start Date**     | Beginning of the date range (`YYYY-MM-DD`). Defaults to January 1 of the current year.                 |
+| **End Date**       | End of the date range (`YYYY-MM-DD`). Defaults to December 31 of the current year.                     |
+| **Min Value**      | Value at or below which a cell shows as black                                                          |
+| **Max Value**      | Value at which a cell reaches full green                                                               |
 
 ## Supported Filename Formats
 
 When no Date Property is configured, the plugin parses the date from the note's filename:
 
-| Format | Example filename |
-|---|---|
-| `YYYY-MM-DD` | `2026-02-24.md` |
-| `MM-DD-YYYY` | `02-24-2026.md` |
+| Format       | Example filename |
+| ------------ | ---------------- |
+| `YYYY-MM-DD` | `2026-02-24.md`  |
+| `MM-DD-YYYY` | `02-24-2026.md`  |
 
 Subfolders are ignored — only the filename matters.
