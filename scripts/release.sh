@@ -34,7 +34,9 @@ fi
 
 read -r -p "No release found for ${tag}. Create one? [y/N] " answer
 if [[ "${answer}" =~ ^[Yy]$ ]]; then
-  gh release create "${tag}" --generate-notes
+  gh release create "${tag}" --generate-notes \
+    "${SCRIPT_DIR}/../main.js" \
+    "${SCRIPT_DIR}/../manifest.json"
 else
   echo "Aborted."
 fi
