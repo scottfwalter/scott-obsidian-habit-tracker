@@ -14,8 +14,15 @@ import {
 
 export const HEATMAP_VIEW_ID = 'habit-heatmap'
 
-const GITHUB_COLORS = ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39']
 const EMPTY_CELL_COLOR = '#1a1a1a'
+
+const COLOR_PALETTES: Record<string, [string, string, string, string]> = {
+	green:  ['#9be9a8', '#40c463', '#30a14e', '#216e39'],
+	red:    ['#ffb3b3', '#f06060', '#d63030', '#9b1c1c'],
+	blue:   ['#a8d4f5', '#4a9edd', '#2271c2', '#144d8a'],
+	orange: ['#ffd6a0', '#f5a030', '#d97706', '#a35400'],
+	purple: ['#d4aaff', '#a366f0', '#7c3aed', '#5218a8'],
+}
 const CELL_GAP = 3
 const DAY_LABEL_WIDTH = 20
 const CONTAINER_PADDING = 16
@@ -54,6 +61,25 @@ export const HEATMAP_VIEW_OPTIONS: (_config: BasesViewConfig) => BasesAllOptions
 				displayName: 'End Date',
 				key: 'endDate',
 				placeholder: 'YYYY-MM-DD',
+			},
+		],
+	},
+	{
+		type: 'group',
+		displayName: 'Display',
+		items: [
+			{
+				type: 'dropdown',
+				displayName: 'Color Palette',
+				key: 'colorPalette',
+				default: 'green',
+				options: {
+					green: 'Green (Default)',
+					red: 'Red',
+					blue: 'Blue',
+					orange: 'Orange',
+					purple: 'Purple',
+				},
 			},
 		],
 	},
@@ -99,10 +125,10 @@ interface DayCell {
 
 // ─── Color helper ────────────────────────────────────────────────────────────
 
-function colorForValue(value: number | null, min: number, max: number): string {
+function colorForValue(value: number | null, min: number, max: number, palette: [string, string, string, string]): string {
 	if (value === null || value <= min) return EMPTY_CELL_COLOR
-	if (max <= min || value >= max) return GITHUB_COLORS[4]
-	return GITHUB_COLORS[Math.max(1, Math.ceil(((value - min) / (max - min)) * 4))]
+	if (max <= min || value >= max) return palette[3]
+	return palette[Math.max(0, Math.ceil(((value - min) / (max - min)) * 4) - 1)]
 }
 
 // ─── View ────────────────────────────────────────────────────────────────────
@@ -117,6 +143,7 @@ export class HeatmapView extends BasesView {
 	private weeks: DayCell[][] = []
 	private minValue = 0
 	private maxValue = 10
+	private palette: [string, string, string, string] = COLOR_PALETTES.green
 	private hasPendingUpdate = false
 	private readonly handleFocusOut: (evt: FocusEvent) => void
 
@@ -167,12 +194,14 @@ export class HeatmapView extends BasesView {
 		const endDateStr = this.config.get('endDate') as string | undefined
 		const rawMin = this.config.get('minValue'); const minValue = rawMin != null ? Number(rawMin) : 1
 		const maxValue = Number(this.config.get('maxValue')) || 10
+		const paletteKey = (this.config.get('colorPalette') as string | undefined) ?? 'green'
+		const palette = COLOR_PALETTES[paletteKey] ?? COLOR_PALETTES.green
 
 		const startDate = startDateStr && moment(startDateStr).isValid() ? moment(startDateStr) : moment().startOf('year')
 
 		const endDate = endDateStr && moment(endDateStr).isValid() ? moment(endDateStr) : moment().endOf('year')
 
-		return { dateProperty, trackProperty, startDate, endDate, minValue, maxValue }
+		return { dateProperty, trackProperty, startDate, endDate, minValue, maxValue, palette }
 	}
 
 	// ── Data processing ───────────────────────────────────────────────────────
@@ -273,9 +302,10 @@ export class HeatmapView extends BasesView {
 	}
 
 	private doUpdate(): void {
-		const { dateProperty, trackProperty, startDate, endDate, minValue, maxValue } = this.readConfig()
+		const { dateProperty, trackProperty, startDate, endDate, minValue, maxValue, palette } = this.readConfig()
 		this.minValue = minValue
 		this.maxValue = maxValue
+		this.palette = palette
 
 		const entryMap = this.buildEntries(dateProperty, trackProperty)
 		this.weeks = this.buildWeekColumns(entryMap, startDate, endDate, trackProperty, maxValue)
@@ -368,7 +398,7 @@ export class HeatmapView extends BasesView {
 				const color = !cell.inRange
 					? 'transparent'
 					: cell.entry !== null
-						? colorForValue(cell.entry.value, this.minValue, this.maxValue)
+						? colorForValue(cell.entry.value, this.minValue, this.maxValue, this.palette)
 						: EMPTY_CELL_COLOR
 
 				Object.assign(cellEl.style, {
