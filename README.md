@@ -36,8 +36,8 @@ To install via BRAT, add the repo path: https://github.com/scottfwalter/scott-ob
 | **Start Date**     | Beginning of the date range (`YYYY-MM-DD`).                                                            | January 1 of the current year   |
 | **End Date**       | End of the date range (`YYYY-MM-DD`).                                                                  | December 31 of the current year |
 | **Color Palette**  | Color scheme for filled cells. Options: `Green`, `Red`, `Blue`, `Orange`, `Purple`.                    | Green                           |
-| **Min Value**      | Value at or below which a cell renders as the empty/dark color. Range: 0–100.                          | 1                               |
-| **Max Value**      | Value at which a cell reaches full color intensity. Range: 1–100.                                      | 10                              |
+| **Min Value**      | Value at or below which a cell renders as the empty/dark color. Range: 0–10.                           | 1                               |
+| **Max Value**      | Value at which a cell reaches full color intensity. Range: 1–10.                                       | 10                              |
 
 ### Supported Filename Formats
 
